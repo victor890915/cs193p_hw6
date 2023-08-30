@@ -10,10 +10,6 @@ import SwiftUI
 struct ContentView: View {
   @EnvironmentObject var paletteStore: PaletteStore
  
-//  var initPalette: Palette = Palette(name: "init" , emojis: "", id: -1, color: Color(red: 1, green: 0, blue: 0))
-  
-//  @StateObject var emojiMemoryGames = EmojiMemoryGameArray(initgames: [])
-  
   static var emojiMemoryGames: [EmojiMemoryGame] = [EmojiMemoryGame(palette: Palette(name: "init", emojis: "", id: -1, color: Color(red: 1, green: 0, blue: 0)))]
     
   @State private var editMode: EditMode = .inactive
@@ -21,38 +17,6 @@ struct ContentView: View {
   @Environment(\.presentationMode) var presentationMode
   
   @State private var paletteToEdit: Palette?
-//
-//  func getGameView(for palette: Palette) -> some View {
-//    if let game = emojiMemoryGames.games.first(where: { $0.palette.id == palette.id }) {
-//      return EmojiMemoryGameView(game: game)
-//    }
-//    else {
-//      emojiMemoryGames.addI(EmojiMemoryGame(palette: palette))
-//      return EmojiMemoryGameView(game: emojiMemoryGames.games.last!)
-//    }
-//  }
-//
-  func getGameView(for palette: Palette) -> some View {
-    if let game = ContentView.emojiMemoryGames.first(where: { $0.palette.id == palette.id }) {
-      if game.palette == palette {
-        print("same game")
-        return EmojiMemoryGameView(game: game)
-      }
-      else {
-        print("altered palette")
-        let newGame = EmojiMemoryGame(palette: palette)
-        let removeIndex = ContentView.emojiMemoryGames.firstIndex(where: { $0.palette.id == palette.id })
-        ContentView.emojiMemoryGames.remove(at: removeIndex!)
-        ContentView.emojiMemoryGames.append(newGame)
-        return EmojiMemoryGameView(game: ContentView.emojiMemoryGames.last!)
-      }
-    }
-    else {
-      print("new game using chosen palette")
-      ContentView.emojiMemoryGames.append(EmojiMemoryGame(palette: palette))
-      return EmojiMemoryGameView(game: ContentView.emojiMemoryGames.last!)
-    }
-  }
   
   var body: some View {
     VStack {
@@ -102,6 +66,28 @@ struct ContentView: View {
       if let id = paletteStore.palettes.first(where: { $0.id == index }) {
         paletteToEdit = paletteStore.palettes[id]
       }
+    }
+  }
+  
+  func getGameView(for palette: Palette) -> some View {
+    if let game = ContentView.emojiMemoryGames.first(where: { $0.palette.id == palette.id }) {
+      if game.palette == palette {
+        print("same game")
+        return EmojiMemoryGameView(game: game)
+      }
+      else {
+        print("altered palette")
+        let newGame = EmojiMemoryGame(palette: palette)
+        let removeIndex = ContentView.emojiMemoryGames.firstIndex(where: { $0.palette.id == palette.id })
+        ContentView.emojiMemoryGames.remove(at: removeIndex!)
+        ContentView.emojiMemoryGames.append(newGame)
+        return EmojiMemoryGameView(game: ContentView.emojiMemoryGames.last!)
+      }
+    }
+    else {
+      print("new game using chosen palette")
+      ContentView.emojiMemoryGames.append(EmojiMemoryGame(palette: palette))
+      return EmojiMemoryGameView(game: ContentView.emojiMemoryGames.last!)
     }
   }
 }

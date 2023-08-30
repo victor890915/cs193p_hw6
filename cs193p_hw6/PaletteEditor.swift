@@ -12,7 +12,8 @@ import SwiftUI
 struct PaletteEditor: View {
   
   @Binding var palette: Palette
-
+  @State var themeColor: Color = Color.black
+  @State var pairsOfThisPalette: Int = 0
   
   var body: some View {
     Form {
@@ -68,7 +69,7 @@ struct PaletteEditor: View {
   }
   
 
-  @State var themeColor: Color = Color.black
+  
   
   var colorSelectionSection: some View {
     Section(header: Text("Theme color")) {
@@ -87,7 +88,7 @@ struct PaletteEditor: View {
     }
   }
   
-  @State var pairsOfThisPalette: Int = 0
+  
   var pairsSelection: some View{
     Section(header: Text("Number of pairs")){
       TextField("pairs of cards", value: $palette.pairs, format: .number)

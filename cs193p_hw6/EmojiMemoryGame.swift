@@ -16,6 +16,14 @@ class EmojiMemoryGame: ObservableObject {
   var id: Int
   var color: Color
   
+  var cards: [MemoryGame<String>.Card] {
+    return model.cards
+  }
+    
+  var currentScore: Int {
+    return model.scoreOfGame
+  }
+  
   @Published private var model: MemoryGame<String>
   
   init(palette: Palette){
@@ -30,25 +38,15 @@ class EmojiMemoryGame: ObservableObject {
     }
   }
 
-  
-
     
+  // MARK: - Intent(s)
+  
   func createMemoryGame() -> MemoryGame<String> {
     MemoryGame<String>(numberOfPairsOfCards: palette.pairs) { pairIndex in
       let index = palette.emojis.index(palette.emojis.startIndex, offsetBy: pairIndex)
       return String(palette.emojis[index])
     }
   }
-    
-  var cards: [MemoryGame<String>.Card] {
-    return model.cards
-  }
-    
-  var currentScore: Int {
-    return model.scoreOfGame
-  }
-    
-  // MARK: - Intent(s)
 
   func choose(_ card: MemoryGame<String>.Card) {
 //        objectWillChange.send() @published takes care of this line
