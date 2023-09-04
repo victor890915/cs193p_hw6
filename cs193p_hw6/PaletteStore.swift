@@ -11,7 +11,13 @@ import SwiftUI
 
 struct Palette: Identifiable, Codable, Hashable {
   var name: String
-  var emojis: String
+  var emojis: String{
+    didSet{
+      if emojis.count < pairs{
+        pairs = emojis.count
+      }
+    }
+  }
   var id: Int
   var color: RGBAColor
   var pairs: Int{
@@ -45,7 +51,7 @@ class PaletteStore: ObservableObject {
   }
     
   private var userDefaultsKey: String {
-    "PaletteStore:" + name
+    "PaletteStoreFIx:" + name
   }
     
   private func storeInUserDefaults() {

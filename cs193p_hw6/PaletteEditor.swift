@@ -13,7 +13,7 @@ struct PaletteEditor: View {
   
   @Binding var palette: Palette
   @State var themeColor: Color = Color.black
-  @State var pairsOfThisPalette: Int = 0
+
   
   var body: some View {
     Form {

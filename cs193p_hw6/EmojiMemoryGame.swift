@@ -32,7 +32,7 @@ class EmojiMemoryGame: ObservableObject {
     self.emojis = palette.emojis
     self.id = palette.id
     self.color = Color(rgbaColor: palette.color)
-    self.model = MemoryGame<String>(numberOfPairsOfCards: palette.pairs) { pairIndex in
+    self.model = MemoryGame<String>(numberOfPairsOfCards: min(palette.pairs,palette.emojis.count)) { pairIndex in
       let index = palette.emojis.index(palette.emojis.startIndex, offsetBy: pairIndex)
       return String(palette.emojis[index])
     }

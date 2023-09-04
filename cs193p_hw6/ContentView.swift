@@ -72,11 +72,11 @@ struct ContentView: View {
   func getGameView(for palette: Palette) -> some View {
     if let game = ContentView.emojiMemoryGames.first(where: { $0.palette.id == palette.id }) {
       if game.palette == palette {
-        print("same game")
+//        print("same game")
         return EmojiMemoryGameView(game: game)
       }
       else {
-        print("altered palette")
+//        print("altered palette")
         let newGame = EmojiMemoryGame(palette: palette)
         let removeIndex = ContentView.emojiMemoryGames.firstIndex(where: { $0.palette.id == palette.id })
         ContentView.emojiMemoryGames.remove(at: removeIndex!)
@@ -85,7 +85,7 @@ struct ContentView: View {
       }
     }
     else {
-      print("new game using chosen palette")
+//      print("new game using chosen palette")
       ContentView.emojiMemoryGames.append(EmojiMemoryGame(palette: palette))
       return EmojiMemoryGameView(game: ContentView.emojiMemoryGames.last!)
     }
